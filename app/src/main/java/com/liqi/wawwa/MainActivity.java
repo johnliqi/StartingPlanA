@@ -1,6 +1,7 @@
 package com.liqi.wawwa;
 
 import android.annotation.TargetApi;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView, HomeFragment.OnFragmentInteractionListener, PEFragment.OnFragmentInteractionListener, GirlsFragment.OnFragmentInteractionListener {
     ViewPager mViewPager;
     DrawerLayout mDrawerLayout;
     TabLayout mTabLayout;
@@ -91,21 +92,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private void initViewPager() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         List<String> titles = new ArrayList<>();
-        titles.add("精选");
+        titles.add("首页");
         titles.add("体育");
-        titles.add("巴萨");
-        titles.add("购物");
-        titles.add("明星");
-
-        titles.add("精选");
+        titles.add("妹纸");
 
         for (int i = 0; i < titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
         }
+        HomeFragment homeFragment = HomeFragment.newInstance("", "");
+        PEFragment peFragment = PEFragment.newInstance("", "");
+        GirlsFragment girlsFragment = GirlsFragment.newInstance("", "");
         List<Fragment> fragments = new ArrayList<>();
-        for (int i = 0; i < titles.size(); i++) {
-            fragments.add(new ListFragment());
-        }
+        fragments.add(homeFragment);
+        fragments.add(peFragment);
+        fragments.add(girlsFragment);
+//        for (int i = 0; i < titles.size(); i++) {
+//            fragments.add(new ListFragment());
+//        }
         FragmentAdapter mFragmentAdapteradapter =
                 new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
         //给ViewPager设置适配器
@@ -142,4 +145,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
